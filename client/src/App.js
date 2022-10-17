@@ -33,6 +33,13 @@ function App() {
         console.log(data);
       });
   }
+  function Profile() {
+    fetch("/api/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
   return (
     <div className="App">
       <div className="Registration">
@@ -48,6 +55,8 @@ function App() {
         <input type="password" placeholder="Password" id="passwordlog"></input>
         <button onClick={Login}>Login</button>
       </div>
+      <div className="line"></div>
+      <button onClick={Profile}>Profile</button>
     </div>
   );
 }
