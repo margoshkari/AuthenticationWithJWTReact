@@ -27,8 +27,20 @@ app.post("/api/register", async (req, res) => {
   });
 });
 
-app.post("/api/login", (req, res) => {
-  res.json("login");
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await Users.User.findOne({ username: username });
+  if (!user) {
+    res.status(400).json({ error: "User doesn't exist" });
+  }
+  const hashPassword = user.password;
+  bcrypt.compare(password, hashPassword).then((match) => {
+    if (!match) {
+      res.status(400).json({ error: "Incorrect password" });
+    } else {
+      res.json("Logged in");
+    }
+  });
 });
 
 app.get("/api/profile", (req, res) => {

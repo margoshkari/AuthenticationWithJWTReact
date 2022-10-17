@@ -17,6 +17,22 @@ function App() {
         console.log(data);
       });
   }
+  function Login() {
+    var username = document.getElementById("usernamelog").value;
+    var password = document.getElementById("passwordlog").value;
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
   return (
     <div className="App">
       <div className="Registration">
@@ -28,9 +44,9 @@ function App() {
       <div className="line"></div>
       <div className="Login">
         <h2>Login</h2>
-        <input type="text" placeholder="Nickname"></input>
-        <input type="password" placeholder="Password"></input>
-        <button>Login</button>
+        <input type="text" placeholder="Nickname" id="usernamelog"></input>
+        <input type="password" placeholder="Password" id="passwordlog"></input>
+        <button onClick={Login}>Login</button>
       </div>
     </div>
   );
