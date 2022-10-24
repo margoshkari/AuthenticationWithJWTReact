@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import { createBrowserHistory } from "history";
+import React from "react";
 
 function App() {
   function LogOut() {
@@ -69,7 +70,11 @@ function App() {
               element={<Register updateRegister={updateRegister} />}
             ></Route>
             <Route exact path="/UserPage" element={<UserPage />}></Route>
-            <Route exact path="/AdminPage" element={<AdminPage />}></Route>
+            <Route
+              exact
+              path="/AdminPage"
+              element={<AdminPage/>}
+            ></Route>
           </Routes>
         </div>
       </Router>

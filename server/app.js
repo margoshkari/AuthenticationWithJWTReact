@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const bcrypt = require("bcrypt");
 const Users = require("./models/UserModel");
+const Products = require("./models/ProductModel");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const token = require("./jwt");
@@ -67,6 +68,11 @@ app.get("/api/logout", token.validateToken, (req, res) => {
     maxAge: 0,
   });
   res.json("Success");
+});
+
+app.get("/api/products", async (req, res) => {
+  var productsArray = await Products.Product.find({});
+  res.json({ products: productsArray });
 });
 // подключение
 mongoose
