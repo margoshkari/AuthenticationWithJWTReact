@@ -50,7 +50,6 @@ const validateRole = (roles) => {
     }
   };
 };
-
 module.exports = {
   createToken,
   validateToken,

@@ -2,21 +2,34 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UserPage from "./pages/UserPage";
+import AdminPage from "./pages/AdminPage";
+import { createBrowserHistory } from "history";
 
 function App() {
-  function Profile() {
-    fetch("/api/profile")
+  function LogOut() {
+    fetch("/api/logout")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
       });
+    history.push("/");
+    history.go();
   }
-  function AdminProfile() {
-    fetch("/api/admin")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+
+  const history = createBrowserHistory({ forceRefresh: true });
+  function updateLogin(isLogin, role) {
+    console.log("isLogin");
+    console.log(isLogin);
+    console.log(role);
+    if (isLogin == true) {
+      if (role == "user") {
+        history.push("/UserPage");
+      } else if (role == "admin") {
+        history.push("/AdminPage");
+      }
+      history.go();
+    }
   }
   return (
     <div className="App">
@@ -24,27 +37,35 @@ function App() {
         <div>
           <nav>
             <ul>
-              <li>
-                <Link to="/">App</Link>
+              <li id="home">
+                <Link to="/">Home</Link>
               </li>
-              <li>
+              <li id="login">
                 <Link to="/login">Login</Link>
               </li>
-              <li>
+              <li id="register">
                 <Link to="/register">Register</Link>
+              </li>{" "}
+              <li id="admin">
+                <Link to="/adminPage">Admin</Link>
+              </li>
+              <li id="logout">
+                <Link onClick={LogOut}>LogOut</Link>
               </li>
             </ul>
           </nav>
-          <Routes>
-            <Route path="/" element={<Login />}></Route>
-            <Route path="/Login" element={<Login />}></Route>
+          <Routes history={history}>
+            <Route path="/" element={<UserPage />}></Route>
+            <Route
+              path="/Login"
+              element={<Login name={"tmp"} updateLogin={updateLogin} />}
+            ></Route>
             <Route exact path="/Register" element={<Register />}></Route>
+            <Route exact path="/UserPage" element={<UserPage />}></Route>
+            <Route exact path="/AdminPage" element={<AdminPage />}></Route>
           </Routes>
         </div>
       </Router>
-      {/* <button onClick={Profile}>Profile</button>
-      <br></br>
-      <button onClick={AdminProfile}>Admin Profile</button> */}
     </div>
   );
 }

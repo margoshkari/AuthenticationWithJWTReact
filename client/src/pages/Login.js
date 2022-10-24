@@ -1,6 +1,5 @@
 import "../App.css";
-
-function LoginApp() {
+function LoginApp({ name, updateLogin }) {
   function Login() {
     var username = document.getElementById("usernamelog").value;
     var password = document.getElementById("passwordlog").value;
@@ -14,7 +13,11 @@ function LoginApp() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.isLogin) {
+          updateLogin(true, data.role);
+        } else {
+          updateLogin(false, "");
+        }
       });
   }
   return (

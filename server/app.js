@@ -40,7 +40,7 @@ app.post("/api/login", async (req, res) => {
     res.status(400).json({ error: "User doesn't exist" });
   }
   const hashPassword = user.password;
-  bcrypt.compare(password, hashPassword).then((match) => {
+  bcrypt.compare(password, hashPassword).then(async (match) => {
     if (!match) {
       res.status(400).json({ error: "Incorrect password" });
     } else {
@@ -48,17 +48,25 @@ app.post("/api/login", async (req, res) => {
       res.cookie("access-token", accessToken, {
         maxAge: 60 * 60 * 24 * 30 * 1000,
       });
-      res.json("Logged in");
+      res.json({ isLogin: true, role: user.role });
     }
   });
 });
 
 app.get("/api/profile", token.validateToken, (req, res) => {
-  res.json("user profile");
+  res.json({ isLogin: true });
 });
 
 app.get("/api/admin", token.validateRole(["admin"]), (req, res) => {
-  res.json("admin profile");
+  res.json({ isLogin: true });
+});
+
+app.get("/api/logout", token.validateToken, (req, res) => {
+  const accessToken = req.cookies["access-token"];
+  res.cookie("access-token", accessToken, {
+    maxAge: 0,
+  });
+  res.json("Success");
 });
 // подключение
 mongoose

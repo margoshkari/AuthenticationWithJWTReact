@@ -36,3 +36,12 @@ h2{
   padding: 0;
   margin-bottom: 1%;
 }
+ul{
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+#login, #register, #logout, #admin{
+  display: none;
+}
