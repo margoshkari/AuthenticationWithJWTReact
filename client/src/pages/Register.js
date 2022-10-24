@@ -1,6 +1,6 @@
 import "../App.css";
 
-function RegisterApp() {
+function RegisterApp({ updateRegister }) {
   function Register() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
@@ -14,7 +14,11 @@ function RegisterApp() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.isRegister) {
+          updateRegister(true);
+        } else {
+          updateRegister(false);
+        }
       });
   }
   return (

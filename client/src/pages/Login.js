@@ -1,5 +1,10 @@
 import "../App.css";
+import React from "react";
 function LoginApp({ name, updateLogin }) {
+  React.useEffect(() => {
+    document.getElementById("login").style = "display: block";
+    document.getElementById("register").style = "display: block";
+  }, []);
   function Login() {
     var username = document.getElementById("usernamelog").value;
     var password = document.getElementById("passwordlog").value;

@@ -23,7 +23,7 @@ app.post("/api/register", async (req, res) => {
     await user
       .save()
       .then(() => {
-        res.json("User registered");
+        res.json({ isRegister: true });
       })
       .catch((err) => {
         if (err) {

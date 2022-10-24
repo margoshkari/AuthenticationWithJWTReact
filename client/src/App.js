@@ -19,15 +19,18 @@ function App() {
 
   const history = createBrowserHistory({ forceRefresh: true });
   function updateLogin(isLogin, role) {
-    console.log("isLogin");
-    console.log(isLogin);
-    console.log(role);
     if (isLogin == true) {
       if (role == "user") {
         history.push("/UserPage");
       } else if (role == "admin") {
         history.push("/AdminPage");
       }
+      history.go();
+    }
+  }
+  function updateRegister(isRegister) {
+    if (isRegister == true) {
+      history.push("/login");
       history.go();
     }
   }
@@ -60,7 +63,11 @@ function App() {
               path="/Login"
               element={<Login name={"tmp"} updateLogin={updateLogin} />}
             ></Route>
-            <Route exact path="/Register" element={<Register />}></Route>
+            <Route
+              exact
+              path="/Register"
+              element={<Register updateRegister={updateRegister} />}
+            ></Route>
             <Route exact path="/UserPage" element={<UserPage />}></Route>
             <Route exact path="/AdminPage" element={<AdminPage />}></Route>
           </Routes>
