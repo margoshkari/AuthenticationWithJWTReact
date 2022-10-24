@@ -40,6 +40,13 @@ function App() {
         console.log(data);
       });
   }
+  function AdminProfile() {
+    fetch("/api/admin")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
   return (
     <div className="App">
       <div className="Registration">
@@ -57,6 +64,8 @@ function App() {
       </div>
       <div className="line"></div>
       <button onClick={Profile}>Profile</button>
+      <br></br>
+      <button onClick={AdminProfile}>Admin Profile</button>
     </div>
   );
 }

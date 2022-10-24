@@ -28,6 +28,9 @@ button{
   height: 20px;
   background-color: rgb(178, 243, 243);
 }
+button:hover{
+  background-color: rgb(147, 197, 197);
+}
 h2{
   margin: 0;
   padding: 0;

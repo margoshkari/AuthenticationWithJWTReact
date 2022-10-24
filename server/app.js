@@ -18,6 +18,7 @@ app.post("/api/register", async (req, res) => {
     var user = new Users.User({
       username: username,
       password: hash,
+      role: "user",
     });
     await user
       .save()
@@ -53,9 +54,12 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/profile", token.validateToken, (req, res) => {
-  res.json("profile");
+  res.json("user profile");
 });
 
+app.get("/api/admin", token.validateRole(["admin"]), (req, res) => {
+  res.json("admin profile");
+});
 // подключение
 mongoose
   .connect(process.env.mongooseConnection)
