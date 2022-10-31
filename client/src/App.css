@@ -13,6 +13,8 @@
 input{
   height: 30px;
   margin-bottom: 1%;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 .line{
   width: 100%;
